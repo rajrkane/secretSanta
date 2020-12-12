@@ -1,14 +1,13 @@
-import PropTypes from "prop-types"
 import React from "react"
-import "./textbox.css"
+import styles from "./textbox.module.css"
 
 const Textbox = () => (
     <div style={{background: "#f4f4f4"}}>
-        <form class="part">
-            <textarea id="input" placeholder="Enter names here..." autofocus></textarea>
-            <button type="submit" id="generate" >Generate your pairings</button>
-            <div></div>
+        <form className={styles.part}>
+            <textarea id={styles.input} placeholder="Enter names here..." autofocus></textarea>
+            <button type="submit" id={styles.generate} >Generate your pairings</button>
         </form>
+        <p>Outputs</p>
     </div>
 )
 
