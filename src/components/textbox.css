@@ -1,0 +1,42 @@
+.part {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+
+    flex: 1;
+}
+
+#input {
+    display: block;
+    align-self: stretch;
+
+    width: 100%;
+    flex: auto;
+
+    border: 10px solid #0CB50C;
+    border-radius: 10px;
+
+    padding: 15px;
+
+    background-color: rgba(255, 255, 255, .7);
+    outline: none;
+}
+
+#generate {
+    display: block;
+
+    width: 30%;
+    
+    margin:0 auto;
+    margin-top: 20px;
+
+    border-radius: 10px;
+
+    flex: none;
+
+    font-family: inherit;
+
+    background-color: #B3000C;
+    color: #FFFFFF;
+}
