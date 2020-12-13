@@ -3,21 +3,30 @@ import styles from "./textbox.module.css"
 
 const Textbox = () => {
 
-    const [showOutput, toggleShowOutput] = useState(false)
+    const [showOutput, setShowOutput] = useState(false)
+    const [people, setPeople] = useState("")
+
+    const onChange = (e) => {
+        setShowOutput(false)
+        setPeople(e.target.value)
+    }
 
     const onGenerate = (e) => {
         e.preventDefault()
-        toggleShowOutput(!showOutput) 
+        setShowOutput(true)
     }
 
     return (
         <div style={{background: "#f4f4f4"}}>
             <form className={styles.part}>
-                <textarea id={styles.input} className={styles.box} placeholder="Enter names here..." autofocus></textarea>
-                <button id={styles.generate} onClick={e => onGenerate(e)} >Generate your pairings</button>
+                <textarea name="people" onChange={e => onChange(e)} id={styles.input}
+                    className={styles.box} placeholder="Enter names here..."/> 
+                <button type="submit" onClick={e => onGenerate(e)} id={styles.generate}>
+                    Generate your pairings
+                </button>
             </form>
             {showOutput === true && 
-                <textarea readOnly id={styles.output} className={styles.box}>Outputs</textarea>
+                <textarea readOnly id={styles.output} className={styles.box} value={people}/>
             }
         </div>
     )
