@@ -1,6 +1,8 @@
 import React, {useState} from "react"
 import styles from "./textbox.module.css"
 
+import SecretSanta from "./secretSanta"
+
 const Textbox = () => {
 
     const [showOutput, setShowOutput] = useState(false)
@@ -25,10 +27,8 @@ const Textbox = () => {
                     Generate your pairings
                 </button>
             </form>
-            {showOutput === true && 
-                <textarea readOnly id={styles.output} className={styles.box} value={people}/>
-            }
-        </div>
+            {showOutput === true && <SecretSanta input={people}/>} 
+        </div> // put textarea in secretSanta component
     )
 }
 
