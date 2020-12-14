@@ -9,13 +9,13 @@ const SecretSanta = ({ input }) => {
 
     const makePairs = () => {
         names.forEach(santa => assignRecipient(santa))
-        console.log(pairs)
         return pairs
     }
 
     const assignRecipient = (santa) => {
-        const possibleRecipients = names.filter(name => name != santa)
-                                    .filter(name => !Object.values(pairs).includes(name))
+        const possibleRecipients = names.filter(name => name != santa) // no self-matches
+                                    .filter(name => !Object.values(pairs).includes(name)) // no duplicate recipients
+                                    .filter(name => pairs[name] != santa) // no 2-way match loops
         pairs[santa] = possibleRecipients[Math.floor(Math.random() * possibleRecipients.length)]
     }
 
