@@ -22,7 +22,7 @@ const Textbox = () => {
         <div style={{background: "#f4f4f4"}}>
             <form className={styles.part}>
                 <textarea name="people" onChange={e => onChange(e)} id={styles.input}
-                    className={styles.box} placeholder="Enter names here..."/> 
+                    className={styles.box} placeholder='Person 1, Person 2, Person 3, ...'/> 
                 <button type="submit" onClick={e => onGenerate(e)} id={styles.generate}>
                     Generate your pairings
                 </button>
