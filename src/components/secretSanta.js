@@ -20,7 +20,7 @@ const SecretSanta = ({ input }) => {
         if (santa !== names[names.length - 2] || Object.values(pairs).indexOf(names[names.length - 1] !== -1)) {
             pairs[santa] = possibleRecipients[Math.floor(Math.random() * possibleRecipients.length)]
         }
-        else { // force assignment of final input to 2nd-to-last input if final name is not a recipient by then
+        else { // force assignment of final input to 2nd-to-last input if final input is not a recipient by then
             pairs[santa] = names[names.length - 1]
         }
     }
