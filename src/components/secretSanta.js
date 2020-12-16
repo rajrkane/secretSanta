@@ -17,7 +17,12 @@ const SecretSanta = ({ input }) => {
         const possibleRecipients = names.filter(name => name != santa) // no self-matches
                                     .filter(name => !Object.values(pairs).includes(name)) // no duplicate recipients
                                     .filter(name => pairs[name] != santa) // no 2-way match loops
-        pairs[santa] = possibleRecipients[Math.floor(Math.random() * possibleRecipients.length)]
+        if (santa !== names[names.length - 2] || Object.values(pairs).indexOf(names[names.length - 1] !== -1)) {
+            pairs[santa] = possibleRecipients[Math.floor(Math.random() * possibleRecipients.length)]
+        }
+        else { // force assignment of final input to 2nd-to-last input if final name is not a recipient by then
+            pairs[santa] = names[names.length - 1]
+        }
     }
 
     const setFileContents = (santa) => `Hi ${santa}, your pairing is with ${pairs[santa]}. Merry Christmas!`
