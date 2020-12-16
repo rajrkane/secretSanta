@@ -6,25 +6,11 @@ const SecretSanta = ({ input }) => {
     const names = input.split(',')
     names.forEach(name => name.trim())
     let pairs = {}
-    let links = []
 
     const makePairs = () => {
-        names.forEach(santa => assignRecipient(santa))
-        // return pairs
-        return links
-    }
-
-    // const writeToFile = (santa) => {
-    //     fs.writeFile(`${santa}SecretSanta.txt`, `Hi ${santa}, your pair is ${pairs[santa]}`)
-    // }
-
-    const setDownloadableLink = (santa) => {
-        const element = document.createElement('a') // create anchor element
-        console.log('here')
-        element.setAttribute("href", 'data:text/plain;charset=utf-8,' + encodeURIComponent(`Hi ${santa}, your pair is ${pairs[santa]}`))
-        element.setAttribute("download", `${santa}SecretSanta.txt`)
-        links.push(element)
-        console.log('links ', links)
+        names.forEach(santa => {
+            assignRecipient(santa)
+        })
     }
 
     const assignRecipient = (santa) => {
@@ -32,11 +18,22 @@ const SecretSanta = ({ input }) => {
                                     .filter(name => !Object.values(pairs).includes(name)) // no duplicate recipients
                                     .filter(name => pairs[name] != santa) // no 2-way match loops
         pairs[santa] = possibleRecipients[Math.floor(Math.random() * possibleRecipients.length)]
-        setDownloadableLink(santa)
     }
 
+    const setFileContents = (santa) => `Hi ${santa}, your pairing is with ${pairs[santa]}. Merry Christmas!`
+
+    makePairs()
+
     return (
-        <textarea readOnly id={styles.output} className={styles.box} value={makePairs()}/>
+        <div id={styles.output} className={styles.box}>
+            {Object.keys(pairs).map(santa => 
+                <div>
+                    <a href={'data:text/plain;charset=utf-8,' + setFileContents(santa)} 
+                        download={'' + santa + '_secretSanta.txt'}>{santa}</a>
+                    <br></br>
+                </div>
+            )}
+        </div>
     )
 }
 

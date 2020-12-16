@@ -28,7 +28,7 @@ const Textbox = () => {
                 </button>
             </form>
             {showOutput === true && <SecretSanta input={people}/>} 
-        </div> // put textarea in secretSanta component
+        </div>
     )
 }
 
