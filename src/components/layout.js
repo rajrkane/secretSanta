@@ -7,7 +7,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 
 import Header from "./header"
 import Textbox from "./textbox"
@@ -39,6 +39,8 @@ const Layout = ({ children }) => {
         <footer style={{
           marginTop: `2rem`
         }}>
+          <a href="https://rajrkane.com">Author</a><br/>
+          <a href="https://github.com/rrkane/secretSanta">Source code</a><br/>
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.com">Gatsby</a>
