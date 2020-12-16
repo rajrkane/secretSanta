@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Secret Santa Generator`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `A simple web app to generate Secret Santa pairings with Gatsby and React`,
     author: `@gatsbyjs`,
   },
   plugins: [
