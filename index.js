@@ -11,13 +11,17 @@ class SecretSanta {
     })
     let mapContainer = document.getElementById("mapContainer")
     Object.keys(this.pairs).forEach(santa => {
+      let mapDiv = document.createElement("div")
       let mapAnchor = document.createElement("a")
-      mapAnchor.setAttribute('href', 'data:text/plain;charset=utf-8,' + this.setFileContents(santa))
+      mapAnchor.innerText = `Assignment for ${santa}`
+      mapAnchor.setAttribute('href', '#')
       mapAnchor.setAttribute('download', '' + santa + '_secretSanta.txt')
-      mapAnchor.innerText = santa
-      mapContainer.appendChild(mapAnchor)
+      mapDiv.appendChild(mapAnchor)
+      mapContainer.appendChild(mapDiv)
+      mapAnchor.addEventListener('click', (e) => {
+        mapAnchor.setAttribute('href', `data:text/plain;charset=utf-8,${this.setFileContents(santa)}`)
+      })
     })
-    this.pairs = {} // TODO: best way to clear pairs?
   }
 
   assignRecipient = (santa) => {
@@ -32,15 +36,15 @@ class SecretSanta {
     }
   }
 
-  setFileContents = (santa) => `Hi ${santa}, your pairing is with ${this.pairs[santa]}. Merry Christmas!`
+  setFileContents = (santa) => `Hi ${santa}. You need to send a present to ${this.pairs[santa]}. Merry Christmas!`
   
 }
 
 const secretSanta = () => {
-  // TODO: clear existing anchor tags
+  document.getElementById("mapContainer").replaceChildren()
   const input = document.getElementById('input').value
   const names = input.split(',')
-  names.forEach(name => name.trim())
+  names.forEach((name, index) => names[index] = name.trim())
   let obj = new SecretSanta(names)
   obj.makePairs()
   document.getElementById("output").style.display = ''
