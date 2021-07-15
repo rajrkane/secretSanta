@@ -9,6 +9,15 @@ class SecretSanta {
     this.names.forEach(santa => {
         this.assignRecipient(santa)
     })
+    let mapContainer = document.getElementById("mapContainer")
+    Object.keys(this.pairs).forEach(santa => {
+      let mapAnchor = document.createElement("a")
+      mapAnchor.setAttribute('href', 'data:text/plain;charset=utf-8,' + this.setFileContents(santa))
+      mapAnchor.setAttribute('download', '' + santa + '_secretSanta.txt')
+      mapAnchor.innerText = santa
+      mapContainer.appendChild(mapAnchor)
+    })
+    this.pairs = {} // TODO: best way to clear pairs?
   }
 
   assignRecipient = (santa) => {
@@ -28,6 +37,7 @@ class SecretSanta {
 }
 
 const secretSanta = () => {
+  // TODO: clear existing anchor tags
   const input = document.getElementById('input').value
   const names = input.split(',')
   names.forEach(name => name.trim())
