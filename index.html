@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow">
     <meta name="description" content="A simple assignment generator for Secret Santa">
-    <meta property="og:title" content="Secret Santa Generator" >
-    <meta property="og:description" content="A simple assignment generator for Secret Santa" >
+    <meta property="og:title" content="Secret Santa Generator">
+    <meta property="og:description" content="A simple assignment generator for Secret Santa">
+    <script type="text/javascript" src="./index.js"></script>
   </head>
   <body>
     <header style="background:#0CB50C;margin-bottom:1.45rem;">
@@ -33,11 +34,12 @@
         <div style="background:#f4f4f4">
           <form class="part">
               <textarea name="people" id="input" class="box" placeholder="Person 1, Person 2, Person 3, ..."></textarea> 
-              <button type="submit" id="generate">
+              <button type="button" id="generate" onclick="secretSanta();">
                   Generate your pairings
               </button>
           </form>
         </div>
+        <div id="output" class="box" style="display:none;"></div>
         <footer style="margin-top:2rem;">
           <a href="https://rajrkane.com/donate">Support the author</a><br/>
           <a href="https://github.com/rajrkane/secretSanta">Source</a>
