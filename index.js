@@ -27,7 +27,6 @@ class SecretSanta {
   assignRecipient = (santa) => {
     const possibleRecipients = this.names.filter(name => name != santa) // no self-matches
                                 .filter(name => !Object.values(this.pairs).includes(name)) // no duplicate recipients
-                                .filter(name => this.pairs[name] != santa) // no 2-way match loops
     if (santa !== this.names[this.names.length - 2] || Object.values(this.pairs).indexOf(this.names[this.names.length - 1] !== -1)) {
         this.pairs[santa] = possibleRecipients[Math.floor(Math.random() * possibleRecipients.length)]
     }
