@@ -1,3 +1,45 @@
+const path = require('path')
+const bodyParser = require('body-parser')
+const express = require('express')
+const app = express()
+const PORT = 3000
+const {s3upload} = require("./public/s3")
+
+const urlEncodedParser = bodyParser.urlencoded({extended: false})
+
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname+'/index.html'))
+})
+
+app.post('/', urlEncodedParser, (req, res) => {
+	console.log('got names: ', req.body['names'])
+	names = req.body['names']
+	s3upload(names)
+
+	res.render(__dirname+"/index.html", {output:names})
+})
+
+app.engine('html', require('ejs').renderFile)
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+const hostname = '0.0.0.0';
+app.listen(PORT, hostname, () => {
+    console.log(`Server running at http://${hostname}:${PORT}/`);
+  });
+
+
+
+
+
+
+
+
+
+
+/**
+
+
 class SecretSanta {
 
   constructor(names) {
@@ -40,11 +82,9 @@ class SecretSanta {
 }
 
 const secretSanta = () => {
-  document.getElementById("mapContainer").replaceChildren()
-  const input = document.getElementById('input').value
-  const names = input.split(',')
-  names.forEach((name, index) => names[index] = name.trim())
-  let obj = new SecretSanta(names)
-  obj.makePairs()
-  document.getElementById("output").style.display = ''
+const names = getNames()
+let obj = new SecretSanta(names)
+obj.makePairs()
+document.getElementById("output").style.display = ''
 }
+ */
