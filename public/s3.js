@@ -12,6 +12,7 @@ const s3 = new AWS.S3({
 })
 
 const s3upload = (name_str) => {
+	// randomize key
 	if (name_str) {
 		s3.putObject({Key: 'names', Body: name_str}, (err, data) => {
 			if (err) {

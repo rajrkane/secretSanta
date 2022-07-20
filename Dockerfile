@@ -43,9 +43,9 @@ COPY entry.sh /
 # Copy function code
 COPY handler.py ${FUNCTION_DIR}
 #
-#COPY src ./src
+COPY public ./public
 #
-#COPY .env .env
+COPY .env .env
 #
 RUN chmod 777 /entry.sh
 
