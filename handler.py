@@ -2,6 +2,8 @@ from public.s3 import S3
 from clingo.control import Control
 from urllib.parse import unquote_plus
 from random import sample
+from json import dumps
+import io
 
 asp_rules = """
 	% Initialize persons
@@ -20,20 +22,26 @@ asp_rules = """
 def format_model(model):
 	match_arr = [str(atom) for atom in model.symbols(shown=True)]
 	print('match_arr: ', match_arr)
-	updated_model = []
+	model_dict = []
 	for match in match_arr:
 		match_split = match.split('(')[1].split(',')
-		updated_model.append({match_split[0]: match_split[1][:-1]})
+		model_dict.append({match_split[0]: match_split[1][:-1]})
 
-	return updated_model
+	return dumps(model_dict)
 
 def asp_handler(event, context):
 	# Parse event
-	key = unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8') #.split(",")
+	key = unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8') 
 
 	# Get S3 object body
 	s3 = S3()
-	body = s3.get_object_body(key)
+	try:
+		body = s3.get_object_body(key)
+		print(f"Got body `{body}` from input bucket.")
+	except Exception as e:
+		print(f"Could not get body from input bucket.")
+		print(e)
+		raise(e)
 
 	# Format names
 	name_arr = body.split(",")
@@ -55,14 +63,17 @@ def asp_handler(event, context):
 	with control.solve(yield_=True) as handle:
 		for model in handle:
 			updated_model = format_model(model)
+			print('Updated model: ', updated_model)
 
-	print("updated_model: ", updated_model)
-
-	# Return result
-	return {
-		"headers": {"Content-Type": "application/json"},
-		"statusCode": 200,
-		"body": {
-			"model": updated_model
-		} 
-	}
+	# Save result to output bucket
+	with io.BytesIO() as f:
+		f.write(updated_model.encode())
+		f.seek(0)
+		try:
+			filename = 'names'
+			s3.save_to_output(f, filename)
+			print(f"Saved {filename} to output bucket.")
+		except Exception as e:
+			print(f"Could not upload to output bucket.")
+			print(e)
+			raise(e)

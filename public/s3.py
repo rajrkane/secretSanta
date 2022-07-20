@@ -7,6 +7,7 @@ class S3:
 	def __init__(self):
 		load_dotenv()
 		self.input_bucket = getenv("AWS_INPUT_BUCKET")
+		self.output_bucket = getenv("AWS_OUTPUT_BUCKET")
 		self.access_key = getenv("AWS_ACCESS_KEY")
 		self.secret_key = getenv("AWS_SECRET_KEY")
 		self.client = boto3_client(
@@ -25,3 +26,6 @@ class S3:
 
 		body = response['Body'].read().decode('utf-8')	
 		return body
+
+	def save_to_output(self, fileObj, name):
+		self.client.upload_fileobj(fileObj, self.output_bucket, name)
