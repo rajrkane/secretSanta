@@ -2,21 +2,23 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
-const PORT = 3000
+const PORT = 8000
 const {s3upload, s3fetch} = require("./public/s3")
 
 const urlEncodedParser = bodyParser.urlencoded({extended: false})
 
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname+'/index.html'))
+	//res.sendFile(path.join(__dirname+'/index.html'))
+	res.render(__dirname+"/index.html", {output:[]})
 })
 
 app.post('/', urlEncodedParser, async (req, res) => {
 	const names = req.body['names']
 	s3upload(names)
+	//const matches = await s3fetch('names') // ['bob, alice', 'alice, carol', 'carol, bob']
 	const matches = await s3fetch('names')
-
-	res.render(__dirname+"/index.html", {output:matches})
+	console.log(matches.split('.').slice(0, -1))
+	res.render(__dirname+"/index.html", {output:matches.split('.').slice(0, -1)})
 	
 })
 

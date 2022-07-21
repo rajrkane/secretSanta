@@ -21,13 +21,11 @@ asp_rules = """
 
 def format_model(model):
 	match_arr = [str(atom) for atom in model.symbols(shown=True)]
-	print('match_arr: ', match_arr)
-	model_dict = []
+	updated_model = ''
 	for match in match_arr:
-		match_split = match.split('(')[1].split(',')
-		model_dict.append({match_split[0]: match_split[1][:-1]})
+		updated_model += match.split('(')[1][:-1] + '.'
 
-	return dumps(model_dict)
+	return updated_model # 'bob,alice.alice,bob.'
 
 def asp_handler(event, context):
 	# Parse event
