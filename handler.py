@@ -1,4 +1,5 @@
 from public.s3 import S3
+from public.sqs import SQS
 from clingo.control import Control
 from urllib.parse import unquote_plus
 from random import sample
@@ -29,7 +30,8 @@ def format_model(model):
 
 def asp_handler(event, context):
 	# Parse event
-	key = unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8') 
+	key = unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
+	print(f'Got key {key}.')
 
 	# Get S3 object body
 	s3 = S3()
@@ -63,15 +65,18 @@ def asp_handler(event, context):
 			updated_model = format_model(model)
 			print('Updated model: ', updated_model)
 
+	# Send result to response queue
+	sqs = SQS()
+	sqs.send_message({'key': key, 'body': updated_model})
+
 	# Save result to output bucket
-	with io.BytesIO() as f:
-		f.write(updated_model.encode())
-		f.seek(0)
-		try:
-			filename = 'names'
-			s3.save_to_output(f, filename)
-			print(f"Saved {filename} to output bucket.")
-		except Exception as e:
-			print(f"Could not upload to output bucket.")
-			print(e)
-			raise(e)
+	# with io.BytesIO() as f:
+	# 	f.write(updated_model.encode())
+	# 	f.seek(0)
+	# 	try:
+	# 		s3.save_to_output(f, key)
+	# 		print(f"Saved {key} to output bucket.")
+	# 	except Exception as e:
+	# 		print(f"Could not upload {key} to output bucket.")
+	# 		print(e)
+	# 		raise(e)

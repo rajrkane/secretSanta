@@ -17,7 +17,6 @@ class S3:
 			aws_secret_access_key=self.secret_key
 		)
 
-	# could just use object key, no body
 	def get_object_body(self, key):
 		response = self.client.get_object(
 			Bucket=self.input_bucket,

@@ -3,23 +3,23 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 const PORT = 8000
-const {s3upload, s3fetch} = require("./public/s3")
+const S3 = require("./public/s3")
 
 const urlEncodedParser = bodyParser.urlencoded({extended: false})
 
 app.get('/', (req, res) => {
-	//res.sendFile(path.join(__dirname+'/index.html'))
 	res.render(__dirname+"/index.html", {output:[]})
 })
 
 app.post('/', urlEncodedParser, async (req, res) => {
-	const names = req.body['names']
-	s3upload(names)
-	//const matches = await s3fetch('names') // ['bob, alice', 'alice, carol', 'carol, bob']
-	const matches = await s3fetch('names')
-	console.log(matches.split('.').slice(0, -1))
-	res.render(__dirname+"/index.html", {output:matches.split('.').slice(0, -1)})
-	
+	// const names = req.body['names']
+	const key = '' + new Date().valueOf()
+	const s3 = new S3(key, req.body['names'])
+	s3.handleInput()
+	// handleInput(req.body['names'])
+	// s3upload(key, names)
+	// const matches = await s3fetch(key)
+	//res.render(__dirname+"/index.html", {output:matches})	
 })
 
 app.engine('html', require('ejs').renderFile)
