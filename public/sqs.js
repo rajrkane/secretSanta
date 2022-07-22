@@ -3,9 +3,9 @@ const AWS = require('aws-sdk')
 const fs = require("fs")
 
 class SQS {
-	constructor(key, res_msg) {
+	constructor(key) {
 		this.key = key
-		this.queue = process.env.RESPONSE_QUEUE
+		this.queue = process.env.AWS_RESPONSE_QUEUE
 		this.sqs = new AWS.SQS({
 			region: process.env.AWS_REGION,
 			accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -13,26 +13,30 @@ class SQS {
 		})
 	}
 
-	sqsFetch() {
-		console.log(`Fetching ${this.key}.`)
-		this.sqs.receiveMessage({QueueUrl: this.queue, MaxNumberOfMessages: 10}, (err, data) => {
-			if (err) console.log(err)
-			else if (data.Messages) {
-				data.Messages.forEach(msg => {
-					let [key, body] = msg.Body.split(',')
-					if (key == this.key) {
-						// Found the desired message
-						console.log(`Got response ${body} - ${key}.`)
-						this.sqsRemove(msg)
-						return body
-					}
-				})
+	sqsFetch(res) {
+		this.sqs.receiveMessage(
+			{
+				QueueUrl: this.queue, 
+				MaxNumberOfMessages: 10, 
+				MessageAttributeNames: ["All"]})
+				.promise()
+				.then(data => {
+					if (data.Messages) {
+						// Find the corresponding message
+						const message = data.Messages.find(msg => this.key == msg["MessageAttributes"]["Key"]["StringValue"])
+
+						// Found message
+						if (message) {
+							console.log('Found.')
+							const body =  message["Body"].split('.').slice(0,-1)
+							res.render("../index.html", {output: body})
+						}
 			}
 
-			// If message not found, poll again in 1 second
-			setTimeout(() => {}, 1000)
-			this.sqsFetch()
-		})
+			// Message not found, so poll again
+			setTimeout(() => {}, 3000)
+			this.sqsFetch(res)
+		})		
 	}
 
 	sqsRemove(msg) {

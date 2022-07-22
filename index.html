@@ -45,8 +45,8 @@
 			<div class="part">
 			<div id="output" class="box" >
 				<%output.forEach(match => {%>
-					<div><a href="<%=`data:text/plain;charset=utf-8,${match.split(',')[1]}`%>" download="<%= `${match.split(',')[0]}_secretSanta.txt`%>"><%= `Assignment for ${match.split(',')[0]}` %></a></div>
-				<%})%>
+                    <div><a href="<%=`data:text/plain;charset=utf-8,${match.split(',')[1]}`%>" download="<%= `${match.split(',')[0]}_secretSanta.txt`%>"><%= `Assignment for ${match.split(',')[0]}` %></a></div>
+                <%})%>
 			</div>
 			</div>
         </div>

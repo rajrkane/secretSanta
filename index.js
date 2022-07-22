@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const PORT = 8000
 const S3 = require("./public/s3")
+const SQS = require("./public/sqs")
 
 const urlEncodedParser = bodyParser.urlencoded({extended: false})
 
@@ -12,14 +13,13 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', urlEncodedParser, async (req, res) => {
-	// const names = req.body['names']
 	const key = '' + new Date().valueOf()
 	const s3 = new S3(key, req.body['names'])
 	s3.handleInput()
-	// handleInput(req.body['names'])
-	// s3upload(key, names)
-	// const matches = await s3fetch(key)
-	//res.render(__dirname+"/index.html", {output:matches})	
+	const sqs = new SQS(key)
+	sqs.sqsFetch(res)
+	
+
 })
 
 app.engine('html', require('ejs').renderFile)
