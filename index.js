@@ -23,8 +23,8 @@ app.engine('html', require('ejs').renderFile)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-const port = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 const hostname = '0.0.0.0';
 app.listen(PORT, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running at http://${hostname}:${PORT}/`);
   });
