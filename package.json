@@ -7,7 +7,7 @@
     "express": "^4.18.1"
   },
   "name": "secretsanta",
-  "description": "A Secret Santa generator using Answer Set Programming in AWS Lambda. [Hosted](https://secretsantagenerator.vercel.app/) on Vercel.",
+  "description": "Generate Secret Santa using Answer Set Programming.",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
