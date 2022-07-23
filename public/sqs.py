@@ -7,9 +7,9 @@ class SQS:
 
 	def __init__(self):
 		load_dotenv()
-		self.response_queue = getenv("AWS_RESPONSE_QUEUE")
-		self.access_key = getenv("AWS_ACCESS_KEY")
-		self.secret_key = getenv("AWS_SECRET_KEY")
+		self.response_queue = getenv("RESPONSE_QUEUE")
+		self.access_key = getenv("ACCESS_KEY")
+		self.secret_key = getenv("SECRET_KEY")
 		self.client = boto3_client(
 			"sqs", 
 			region_name="us-east-1",

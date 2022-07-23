@@ -13,13 +13,13 @@ Find a walkthrough of the code and examples on [my site](https://rajrkane.com/bl
 ```
 $ git clone git@github.com:rajrkane/secretSanta.git
 ```
-2. Create a `.env` file at the root with this format
+2. Create a `.env` file at the root with the AWS variables in this format
 ```
-AWS_INPUT_BUCKET=<bucket_name>
-AWS_RESPONSE_QUEUE="<queue_url>"
-AWS_REGION="<region>"
-AWS_ACCESS_KEY=<access_key>
-AWS_SECRET_KEY=<secret_key>
+INPUT_BUCKET=<bucket_name>
+RESPONSE_QUEUE="<queue_url>"
+REGION="<region>"
+ACCESS_KEY=<access_key>
+SECRET_KEY=<secret_key>
 ```
 3. Push the Docker image
 ```

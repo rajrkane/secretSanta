@@ -8,11 +8,11 @@ class S3 {
 		this.names = input_names
 		this.s3 = new AWS.S3({
 			params: {
-				Bucket: process.env.AWS_INPUT_BUCKET
+				Bucket: process.env.INPUT_BUCKET
 			},
-			region: process.env.AWS_REGION,
-			accessKeyId: process.env.AWS_ACCESS_KEY,
-			secretAccessKey: process.env.AWS_SECRET_KEY
+			region: process.env.REGION,
+			accessKeyId: process.env.ACCESS_KEY,
+			secretAccessKey: process.env.SECRET_KEY
 		})
 	}
 

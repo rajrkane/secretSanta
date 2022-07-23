@@ -6,10 +6,10 @@ class S3:
 
 	def __init__(self):
 		load_dotenv()
-		self.input_bucket = getenv("AWS_INPUT_BUCKET")
+		self.input_bucket = getenv("INPUT_BUCKET")
 		self.output_bucket = getenv("AWS_OUTPUT_BUCKET")
-		self.access_key = getenv("AWS_ACCESS_KEY")
-		self.secret_key = getenv("AWS_SECRET_KEY")
+		self.access_key = getenv("ACCESS_KEY")
+		self.secret_key = getenv("SECRET_KEY")
 		self.client = boto3_client(
 			"s3", 
 			region_name="us-east-1",

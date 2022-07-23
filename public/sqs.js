@@ -6,11 +6,11 @@ class SQS {
 
 	constructor(key) {
 		this.key = key
-		this.queue = process.env.AWS_RESPONSE_QUEUE
+		this.queue = process.env.RESPONSE_QUEUE
 		this.sqs = new AWS.SQS({
-			region: process.env.AWS_REGION,
-			accessKeyId: process.env.AWS_ACCESS_KEY,
-			secretAccessKey: process.env.AWS_SECRET_KEY
+			region: process.env.REGION,
+			accessKeyId: process.env.ACCESS_KEY,
+			secretAccessKey: process.env.SECRET_KEY
 		})
 	}
 
