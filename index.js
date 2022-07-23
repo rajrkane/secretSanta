@@ -18,8 +18,6 @@ app.post('/', urlEncodedParser, async (req, res) => {
 	s3.handleInput()
 	const sqs = new SQS(key)
 	sqs.sqsFetch(res)
-	
-
 })
 
 app.engine('html', require('ejs').renderFile)

@@ -4,7 +4,6 @@ from clingo.control import Control
 from urllib.parse import unquote_plus
 from random import sample
 from json import dumps
-import io
 
 asp_rules = """
 	% Initialize persons
@@ -37,10 +36,8 @@ def asp_handler(event, context):
 	s3 = S3()
 	try:
 		body = s3.get_object_body(key)
-		print(f"Got body `{body}` from input bucket.")
 	except Exception as e:
 		print(f"Could not get body from input bucket.")
-		print(e)
 		raise(e)
 
 	# Format names
@@ -67,16 +64,8 @@ def asp_handler(event, context):
 
 	# Send result to response queue
 	sqs = SQS()
-	sqs.send_message({'key': key, 'body': updated_model})
-
-	# Save result to output bucket
-	# with io.BytesIO() as f:
-	# 	f.write(updated_model.encode())
-	# 	f.seek(0)
-	# 	try:
-	# 		s3.save_to_output(f, key)
-	# 		print(f"Saved {key} to output bucket.")
-	# 	except Exception as e:
-	# 		print(f"Could not upload {key} to output bucket.")
-	# 		print(e)
-	# 		raise(e)
+	try:
+		sqs.send_message({'key': key, 'body': updated_model})
+	except Exception as e:
+		print(f"Could not send message to response queue.")
+		raise(e)

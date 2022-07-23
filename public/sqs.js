@@ -1,8 +1,9 @@
 require("dotenv").config()
 const AWS = require('aws-sdk')
-const fs = require("fs")
+const {setFileContents} = require('./functions')
 
 class SQS {
+
 	constructor(key) {
 		this.key = key
 		this.queue = process.env.AWS_RESPONSE_QUEUE
@@ -14,38 +15,32 @@ class SQS {
 	}
 
 	sqsFetch(res) {
-		this.sqs.receiveMessage(
-			{
-				QueueUrl: this.queue, 
-				MaxNumberOfMessages: 10, 
-				MessageAttributeNames: ["All"]})
-				.promise()
-				.then(data => {
-					if (data.Messages) {
-						// Find the corresponding message
-						const message = data.Messages.find(msg => this.key == msg["MessageAttributes"]["Key"]["StringValue"])
+		this.sqs.receiveMessage({
+			QueueUrl: this.queue, 
+			MaxNumberOfMessages: 10, 
+			MessageAttributeNames: ["All"]})
+			.promise()
+			.then(data => {
+				if (data.Messages) {
+					// Find corresponding message
+					const message = data.Messages.find(msg => this.key == msg["MessageAttributes"]["Key"]["StringValue"])
 
-						// Found message
-						if (message) {
-							console.log('Found.')
-							const body =  message["Body"].split('.').slice(0,-1)
-							res.render("../index.html", {output: body})
-						}
-			}
+					// Found message
+					if (message) {
+						console.log('Found.')
+						const matches =  message["Body"].split('.').slice(0,-1)
+						const text = setFileContents(matches)
+						return res.render("../index.html", {
+							output: matches,
+							content: text
+						})
+					}
+				}
 
 			// Message not found, so poll again
-			setTimeout(() => {}, 3000)
+			setTimeout(() => {}, 1000)
 			this.sqsFetch(res)
-		})		
-	}
-
-	sqsRemove(msg) {
-		this.sqs.deleteMessage({QueueUrl: this.queue, ReceiptHandle: msg.ReceiptHandle}, (err, data) => {
-			if (err) console.log(err)
-			else {
-				console.log(`Removed ${this.key} from queue.`)
-			}
-		})
+			})		
 	}
 }
 

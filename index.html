@@ -6,12 +6,9 @@
     <link rel='stylesheet' type='text/css' href='/style.css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index, follow">
-    <meta name="description" content="A simple assignment generator for Secret Santa">
+    <meta name="description" content="Generate Secret Santa using Answer Set Programming.">
     <meta property="og:title" content="Secret Santa Generator">
-    <meta property="og:description" content="A simple assignment generator for Secret Santa">
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.24.min.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!-- <script type="module" src="/s3.js"></script> -->
+    <meta property="og:description" content="Generate Secret Santa using Answer Set Programming.">
   </head>
   <body>
     <header style="background:#0CB50C;margin-bottom:1.45rem;">
@@ -25,14 +22,15 @@
       <div style="margin:0 auto;max-width:960;padding:0 1.0875rem 1.45rem;">
         <h3>Directions</h3>
         <ol>
-          	<li>Enter each name separated by commas (<i>e.g. "Alice, Bob, Carol, Dave, Eve"</i>).
+          	<li>Enter each name separated by commas (<i>e.g. <code>alice, bob, carol, dave, eve</code></i>).
 			<ul>
 				<li>Avoid periods (.) or white spaces (&nbsp;&nbsp;&nbsp;) within an individual name.</li>
 				<li>Avoid name repetitions.</li>
 			</ul>
 			</li>
           <li>Click the button.</li>
-          <li>Download the text files and send each file to the corresponding person (<i>e.g. send alice.txt to Alice</i>).</li>
+          <li>Download the text files.</li>
+		  <li>Send each file to the corresponding person (<i>e.g. send <code>alice_secretSanta.txt</code> to <code>alice</code></i>).</li>
         </ol>
         <p><b>Merry Christmas!</b></p>
         <div style="max-width:300px;margin-bottom:1.45rem">
@@ -44,20 +42,17 @@
           	</form>
 			<div class="part">
 			<div id="output" class="box" >
-				<%output.forEach(match => {%>
-                    <div><a href="<%=`data:text/plain;charset=utf-8,${match.split(',')[1]}`%>" download="<%= `${match.split(',')[0]}_secretSanta.txt`%>"><%= `Assignment for ${match.split(',')[0]}` %></a></div>
+				<%output.forEach((match, idX) => {%>
+                    <div><a href="<%=`data:text/plain;charset=utf-8,${content[idX]}`%>" download="<%=`${match.split(',')[0]}_secretSanta.txt`%>"><%= `Assignment for ${match.split(',')[0]}` %></a></div>
                 <%})%>
 			</div>
 			</div>
         </div>
-		<!--TODO-->
 		<div style="max-width:300px;margin-bottom:1.45rem">
 		</div>
-		
-		<!---->
         <footer style="margin-top:2rem;">
           <a href="https://rajrkane.com/donate">Support the author</a><br/>
-          <a href="https://github.com/rajrkane/secretSanta">View on Github</a>
+          <a href="https://github.com/rajrkane/secretSanta">View the source</a>
         </footer>
       </div>
     </main>

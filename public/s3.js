@@ -18,7 +18,6 @@ class S3 {
 
 	async handleInput() {
 		return await this.s3Upload()
-		// let fetch_res = await this.s3Fetch().Body.toString('utf-8').split('.').slice(0, -1)
 	}
 
 	s3Upload() {
