@@ -2,7 +2,6 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
-const PORT = 8000
 const S3 = require("./public/s3")
 const SQS = require("./public/sqs")
 
@@ -24,7 +23,8 @@ app.engine('html', require('ejs').renderFile)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-//const hostname = '0.0.0.0';
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/`);
+const port = process.env.PORT || 3000
+const hostname = '0.0.0.0';
+app.listen(PORT, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
   });
