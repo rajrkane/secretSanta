@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1176.0",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  },
+  "name": "secretsanta",
+  "description": "A Secret Santa generator using Answer Set Programming in AWS Lambda. [Hosted](https://secretsantagenerator.vercel.app/) on Vercel.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajrkane/secretSanta.git"
+  },
+  "author": "Raj Kane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rajrkane/secretSanta/issues"
+  },
+  "homepage": "https://github.com/rajrkane/secretSanta#readme"
+}

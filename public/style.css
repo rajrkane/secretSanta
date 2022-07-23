@@ -97,10 +97,6 @@ h1 {
   font-size: 2.25rem;
   line-height: 1.1;
 }
-mark {
-  background-color: #ff0;
-  color: #000;
-}
 small {
   font-size: 80%;
 }
@@ -172,9 +168,6 @@ textarea {
   font: inherit;
   margin: 0;
 }
-optgroup {
-  font-weight: 700;
-}
 button,
 input {
   overflow: visible;
@@ -213,14 +206,6 @@ fieldset {
   padding-right: 0;
   padding-top: 0;
   margin-bottom: 1.45rem;
-}
-legend {
-  box-sizing: border-box;
-  color: inherit;
-  display: table;
-  max-width: 100%;
-  padding: 0;
-  white-space: normal;
 }
 textarea {
   overflow: auto;
@@ -435,16 +420,6 @@ table {
   border-collapse: collapse;
   width: 100%;
 }
-blockquote {
-  margin-left: 1.45rem;
-  margin-right: 1.45rem;
-  margin-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
-  margin-bottom: 1.45rem;
-}
 form {
   margin-left: 0;
   margin-right: 0;
@@ -639,7 +614,7 @@ pre tt:after {
 #generate {
   display: block;
 
-  width: 30%;
+  width: 40%;
   
   margin:0 auto;
   margin-top: 20px;
