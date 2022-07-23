@@ -1,6 +1,6 @@
 # secretSanta
 
-A Secret Santa generator using Answer Set Programming in AWS Lambda. [Hosted](https://secretsantagenerator.vercel.app/) on Vercel.
+A Secret Santa generator using Answer Set Programming in AWS Lambda.
 
 ## Walkthrough
 
