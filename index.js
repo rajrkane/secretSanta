@@ -24,7 +24,7 @@ app.engine('html', require('ejs').renderFile)
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-const hostname = '0.0.0.0';
-app.listen(PORT, hostname, () => {
-    console.log(`Server running at http://${hostname}:${PORT}/`);
+//const hostname = '0.0.0.0';
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}/`);
   });
