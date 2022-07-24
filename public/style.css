@@ -253,12 +253,10 @@ tt:after {
 .box {
   display: block;
   align-self: stretch;
-  width: 100%;
   flex: auto;
   border-radius: 10px;
   padding: 15px;
   background-color: rgba(255, 255, 255, .7);
-  outline: none;
 }
 #input {
   border: 10px solid #0CB50C;
