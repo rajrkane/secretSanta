@@ -17,6 +17,7 @@ class S3 {
 	}
 
 	async handleInput() {
+		console.log('Sending.')
 		return await this.s3Upload()
 	}
 

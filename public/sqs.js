@@ -15,6 +15,7 @@ class SQS {
 	}
 
 	sqsFetch(res) {
+		console.log('Fetching.')
 		this.sqs.receiveMessage({
 			QueueUrl: this.queue, 
 			MaxNumberOfMessages: 10, 
