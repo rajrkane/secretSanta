@@ -2,9 +2,13 @@
 
 A Secret Santa generator using Answer Set Programming in AWS Lambda.
 
+## Live
+
+The generator is live on [Heroku](https://secretsanta-asp.herokuapp.com/).
+
 ## Walkthrough
 
-Find a walkthrough of the code and examples on [my site](https://rajrkane.com/blog/SecretSantaWithAnswerSetProgramming).
+Find a walkthrough of the code and examples on [my site](https://rajrkane.com/blog/SecretSantaWithAnswerSetProgramming/).
 
 
 ## Build
