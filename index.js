@@ -16,7 +16,8 @@ app.post('/', urlEncodedParser, async (req, res) => {
 	const s3 = new S3(key, req.body['names'])
 	s3.handleInput()
 	const sqs = new SQS(key)
-	sqs.sqsFetch(res)
+	const result = await sqs.pollQueue()
+	res.render(__dirname+"/index.html", {output:result[0], content:result[1]})
 })
 
 app.engine('html', require('ejs').renderFile)

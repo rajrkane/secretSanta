@@ -22,7 +22,10 @@ class S3 {
 	}
 
 	s3Upload() {
-		return this.s3.putObject({Key: this.key, Body: this.names}).promise()
+		return this.s3.putObject({
+			Key: this.key, 
+			Body: this.names
+		}).promise()
 	}
 }
 
