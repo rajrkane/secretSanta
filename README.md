@@ -6,9 +6,17 @@ A Secret Santa generator using Answer Set Programming in AWS Lambda.
 
 The generator is live on [Heroku](https://secretsanta-asp.herokuapp.com/).
 
-## Walkthrough
+## Workflow
 
-Find a walkthrough of the code and examples on [my site](https://rajrkane.com/blog/SecretSantaWithAnswerSetProgramming/).
+1. User posts an input (e.g. `alice, bob, carol, dave, eve`).
+2. Webserver puts the request into an input **S3** bucket.
+3. Bucket action triggers a **Lambda** handler.
+4. Handler runs a **Clingo** program that uses **answer set programming** to find an answer set for the input.
+5. Handler sends the answer set to an **SQS** response queue.
+6. Webserver polls the queue to find the result.
+7. Result is displayed on the page.
+
+An extended walkthrough is posted on [my site](https://rajrkane.com/blog/SecretSantaWithAnswerSetProgramming/).
 
 
 ## Build
